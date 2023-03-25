@@ -24,66 +24,61 @@ li {
 }
 
 li {
-  position: absolute;
-  top: 0;
-  left: 0;
-  cursor: pointer;
-}
-ul {
   position: relative;
 }
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 ul li {
-  transform: rotate(-6deg);
-  transition: transform 0.15s linear;
-  height: 16rem;
-  width: 16rem;
-  border: 2px solid cyan;
+  padding: 2rem;
 }
 
 ul li a {
   text-decoration: none;
   color: #000;
   background: #ffc;
-  position: absolute;
-  top: 2rem;
-  left: 0rem;
   display: block;
-  height: 14rem;
-  width: 100%;
+  height: 14em;
+  width: 14em;
+  padding: 1rem;
+  margin: 1rem;
+  margin-top: 4rem;
+  border: 1px solid cyan;
   box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
+  transform: rotate(-6deg);
+  transition: transform 0.15s linear;
 }
 
-ul li:nth-child(even) {
+ul li {
+  margin: 1em;
+}
+
+ul li:nth-child(even) a {
   transform: rotate(4deg);
+  position: relative;
+  top: 5px;
 }
-
-/*
-ul li:nth-child(3n) {
+ul li:nth-child(3n) a {
   transform: rotate(-3deg);
   position: relative;
   top: -5px;
   background: #ccf;
 }
-ul li:nth-child(5n) {
+ul li:nth-child(5n) a {
   transform: rotate(5deg);
   position: relative;
   top: -10px;
   background: #cfc;
 }
-*/
-ul li:hover,
-ul li:focus {
+
+ul li a:hover,
+ul li a:focus {
   box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
   transform: scale(1.25);
   position: relative;
   z-index: 5;
-}
-
-.cardheader {
-  height: 1.5rem;
-  width: 100%;
-  position: absolute;
-  background-color: aquamarine;
 }
 
 .addbutton {
@@ -143,14 +138,14 @@ ul li:focus {
   position: absolute;
   display: flex;
   background-color: rgba(255, 255, 255, 0.4);
-  height: 1.5rem;
-  width: 1.5rem;
+  height: 2rem;
+  width: 2rem;
   border-radius: 50%;
-  top: 0.5rem;
+  top: 1rem;
   right: 1rem;
   color: rgb(0, 0, 0);
   font-family: "Open Sans", sans-serif;
-  font-size: 1rem;
+  font-size: 1.5rem;
   justify-content: center;
   align-items: center;
   padding: 0;

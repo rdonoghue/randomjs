@@ -1,7 +1,7 @@
 let allPostIts = document.querySelectorAll(".postit");
 let allPostItContainer = document.querySelectorAll("li");
-var allPostItHeaders = document.querySelectorAll(".cardheader");
 let deleteBoxes = document.querySelectorAll(".deleteme");
+var allPostItHeaders = document.querySelectorAll(".cardheader");
 
 const postList = document.querySelector("ul");
 const addButton = document.querySelector(".addbutton");
@@ -13,14 +13,26 @@ for (var k of deleteBoxes) {
   k.addEventListener("click", deletePostIt);
 }
 
-// window.localStorage.clear();
-if (getData.length !== 0) {
-  console.log(getData.length + " Data Elements");
-  createPostIts();
-} else {
-  console.log("No Data!");
-  dummyPost();
-}
+window.localStorage.clear();
+// if (getData.length !== 0) {
+//   console.log(getData.length + " Data Elements");
+//   createPostIts();
+// } else {
+//   console.log("No Data!");
+//   dummyPost();
+// }
+// dummyPost();
+
+// for (let k of allPostItHeaders) {
+//   k.addEventListener("click", doSomething);
+// }
+
+// function doSomething(e) {
+//   console.log("ping");
+//   console.log(e.target.parentElement);
+// }
+
+enableDrag();
 
 function deletePostIt(e) {
   console.log("ping - " + e.target.parentElement.id);
@@ -38,20 +50,16 @@ function dummyPost() {
   const newHref = document.createElement("a");
   const newBody = document.createElement("p");
   const deleteBox = document.createElement("div");
-  const cardHeader = document.createElement("div");
 
   newHref.href = "#";
   newHref.setAttribute("contenteditable", "true");
   newHref.classList.add("postit");
   newCard.classList.add("postitwrapper");
   deleteBox.classList.add("deleteme");
-  cardHeader.classList.add("cardheader");
-  cardHeader.innerText = " ";
   deleteBox.innerText = "X";
   newCard.id = 1;
   newBody.innerText = "Content Here";
   newCard.appendChild(newHref);
-  newCard.appendChild(cardHeader);
   newCard.appendChild(deleteBox);
   newHref.appendChild(newBody);
   postList.appendChild(newCard);
@@ -61,7 +69,6 @@ function dummyPost() {
   window.localStorage.clear();
 
   savePostIt();
-  enableDrag();
 }
 
 function savePostIt() {
@@ -71,16 +78,15 @@ function savePostIt() {
   for (let k of allPostIts) {
     const bodyText = k.innerText;
     const postItKey = keyCounter;
-    const position = k.style;
-    console.log(position);
+    const thisLi = k.parentElement;
     const postItData = {
       content: bodyText,
-      style: position,
     };
     window.localStorage.setItem(postItKey, JSON.stringify(postItData));
     keyCounter++;
   }
   showData();
+  enableDrag();
 }
 
 // if (getData.length !== 0) {
@@ -134,13 +140,10 @@ function createPostIts() {
       // console.log("Post " + keyCounter);
       const postDetails = JSON.parse(getData[keyCounter]);
       const cardContent = postDetails.content;
-      const position = postDetails.style;
       const newCard = document.createElement("li");
       const newHref = document.createElement("a");
       const newBody = document.createElement("p");
       const deleteBox = document.createElement("div");
-      const cardHeader = document.createElement("div");
-      cardHeader.classList.add("cardheader");
       deleteBox.classList.add("deleteme");
 
       deleteBox.innerText = "X";
@@ -148,14 +151,11 @@ function createPostIts() {
       newHref.setAttribute("contenteditable", "true");
       newHref.classList.add("postit");
       newCard.id = keyCounter;
-      newCard.style = position;
       newBody.innerText = cardContent;
       newCard.appendChild(newHref);
       newCard.appendChild(deleteBox);
-      newCard.appendChild(cardHeader);
       newHref.appendChild(newBody);
       postList.appendChild(newCard);
-      console.log(newCard);
     }
     // else {
     //   console.log("failed " + keyCounter);
@@ -180,19 +180,16 @@ function enableDrag() {
   // for (let k of allPostItContainer) {
   // console.log(k);
   // }
-  for (let k = 0; k < allPostItHeaders.length; k++) {
+  for (let k = 0; k < allPostItContainer.length; k++) {
     dragElement(allPostItHeaders[k]);
-    console.log(allPostItHeaders[k]);
+    // console.log(allPostItHeaders[k]);
     // console.log("ping");
   }
 }
 
 function dragElement(elmnt) {
-  console.log(elmnt.id);
-  // console.log(elmnt.parentElement);
+  console.log(elmnt.parentElement);
   const parentElmnt = elmnt.parentElement;
-  // console.log(parentElmnt);
-  console.log("what??");
 
   var pos1 = 0,
     pos2 = 0,
@@ -224,7 +221,7 @@ function dragElement(elmnt) {
     pos2 = pos4 - e.clientY;
     pos3 = e.clientX;
     pos4 = e.clientY;
-    // set the PARENT element's new position:
+    // set the element's new position:
     parentElmnt.style.top = parentElmnt.offsetTop - pos2 + "px";
     parentElmnt.style.left = parentElmnt.offsetLeft - pos1 + "px";
   }
@@ -234,6 +231,7 @@ function dragElement(elmnt) {
     document.onmouseup = null;
     document.onmousemove = null;
     parentElmnt.style.transition = "0.5s ease";
+    parentElmnt.classList.remove("indeck");
 
     // console.log(elmnt.id);
     // console.log(activeCard.id);

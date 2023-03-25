@@ -11,12 +11,20 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="styles.css" />
-    <script src="scripts.js" defer></script>
+    <link rel="stylesheet" href="scratchstyles.css" />
+    <script src="scratchscript.js" defer></script>
     <title>Post Its</title>
   </head>
   <body>
-    <ul></ul>
+    <ul>
+      <li id="1">
+        <a href="#" contenteditable="true" class="postit"
+          ><p>Content Here<br /></p
+        ></a>
+        <div class="deleteme">X</div>
+        <div class="cardheader"></div>
+      </li>
+    </ul>
     <div class="addbutton">+</div>
     <div class="datainspector"></div>
   </body>
